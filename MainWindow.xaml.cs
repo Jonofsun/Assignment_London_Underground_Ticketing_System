@@ -15,14 +15,19 @@ namespace Assignment_London_Underground_Ticketing_System
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+    // Jonathan Reed
+    // Assignment: Lond Underground Communt
+    // 01/20/2024
     public partial class MainWindow : Window
     {
         // Replace "WillsList" with your Custom List name in 2 places.
         // 1. Replace here
         // Example YourList<Ride> Riders
-        public WillsList<Rider> Riders;
+        // public WillsList<Rider> Riders;
+        public JonathansList<Rider> Riders;
 
-        int numberOfRiders = 10; // Changes this to something higher than 100 to check your list is working
+        int numberOfRiders = 117; // Changes this to something higher than 100 to check your list is working
 
         public MainWindow()
         {
@@ -37,7 +42,7 @@ namespace Assignment_London_Underground_Ticketing_System
         private void OnSearchStation(object sender, RoutedEventArgs e)
         {
             var searchStation = cmbSearchStation.SelectedIndex;
-
+            lvFilteredRiders.ItemsSource = Riders.ReturnRidersAtStation(searchStation);
             // Enter code here to show all riders who started there ride from the selected station
 
             // lvRiders.ItemsSource = YourReturnedResults;
@@ -45,6 +50,7 @@ namespace Assignment_London_Underground_Ticketing_System
 
         private void OnShowActive(object sender, RoutedEventArgs e)
         {
+            lvFilteredRiders.ItemsSource = Riders.ReturnAllActiveRiders();
             // Enter code here to display all riders currently riding the underground
 
             // lvRiders.ItemsSource = YourReturnedResults;
@@ -52,14 +58,16 @@ namespace Assignment_London_Underground_Ticketing_System
 
         private void OnClearList(object sender, RoutedEventArgs e)
         {
+            
             lvFilteredRiders.Items.Clear();
+            //System.InvalidOperationException: 'Operation is not valid while ItemsSource is in use. Access and modify elements with ItemsControl.ItemsSource instead.'
         }
 
         private void InitializeRiders()
         {
             // 2. And here
             // Ex Riders = new YourList<Rider>();
-            Riders = new WillsList<Rider>();
+            Riders = new JonathansList<Rider>();
             Random rnd = new Random();
             HashSet<int> usedNumbers = new HashSet<int>();
 
